@@ -13,6 +13,16 @@
 		<url-pattern>/hello</url-pattern>
 	</servlet-mapping>
  -->
+<!-- <filter>
+		<filter-name>characterEncodingFilter</filter-name> 필터명 
+		<filter-class>com.wakebro.web.filter.CharacterEncodingFilter</filter-class>
+			 필터를 적용시킬  자바 경로
+	</filter>
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>  필터명
+		<url-pattern>/*</url-pattern>  /* : 모든 URL에 적용 
+	</filter-mapping>
+ -->
 	<display-name>Practice_JSP</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
