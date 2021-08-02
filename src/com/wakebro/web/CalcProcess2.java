@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 @WebServlet("/calc2")
 public class CalcProcess2 extends HttpServlet{
 	@Override
@@ -18,6 +19,7 @@ public class CalcProcess2 extends HttpServlet{
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; character=UTF-8");
 		ServletContext application = req.getServletContext();
+		HttpSession session = req.getSession();
 		
 		PrintWriter out = resp.getWriter();
 		String v_ = req.getParameter("v");
@@ -30,9 +32,11 @@ public class CalcProcess2 extends HttpServlet{
 		
 		// 계산
 		if(op.equals("=")) {
-			int x = (Integer)application.getAttribute("value");
+//			int x = (Integer)application.getAttribute("value");
+			int x = (Integer)session.getAttribute("value");
 			int y = v;
-			String operator = (String)application.getAttribute("op");
+//			String operator = (String)application.getAttribute("op");
+			String operator = (String)session.getAttribute("op");
 			if(operator.equals("+"))
 				result = x + y;
 			else	
@@ -41,8 +45,10 @@ public class CalcProcess2 extends HttpServlet{
 		}
 		// 값을 저장
 		else {
-			application.setAttribute("value", v);
-			application.setAttribute("op", op);
+//			application.setAttribute("value", v);
+//			application.setAttribute("op", op);
+			session.setAttribute("value", v);
+			session.setAttribute("op", op);
 			resp.sendRedirect("calc2.html");
 		}
 		
