@@ -89,7 +89,7 @@ public class CalcProcess2 extends HttpServlet{
 			Cookie opcookie = new Cookie("op", op);
 			resp.addCookie(valuecookie);
 			resp.addCookie(opcookie);
-			
+			resp.sendRedirect("calc2.html");
 		}
 		
 	}
