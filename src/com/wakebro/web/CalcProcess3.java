@@ -43,7 +43,6 @@ public class CalcProcess3 extends HttpServlet{
 				}
 			}
 		}
-		System.out.println("calcP3 : "+exp);
 		
 		if(operator != null && operator.equals("=")) {
 			ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");

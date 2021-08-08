@@ -29,7 +29,6 @@ public class CalcPage extends HttpServlet{
 				}
 			}
 		}
-		System.out.println("calcpage : " + exp);
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; character=UTF-8");
 		
