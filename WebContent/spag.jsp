@@ -21,6 +21,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%=request.getAttribute("model") %>입니다.
+	<%=request.getAttribute("model") %>입니다.<br>
+	${model}<br>
+	${fruits[0] }<br>
+	${fruits[1] }<br>
+	${fruits[2] }<br>
+	${m.id }<br>
+	${m.title }<br>
 </body>
 </html>
