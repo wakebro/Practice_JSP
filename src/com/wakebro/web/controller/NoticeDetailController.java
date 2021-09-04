@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.wakebro.web.entity.Notice;
+
 import java.sql.*;
 
 @WebServlet("/notice/detail")
@@ -34,10 +37,15 @@ public class NoticeDetailController extends HttpServlet {
 			String id = rs.getString("ID");
 			String content = rs.getString("CONTENT");
 			
+			Notice notice = new Notice(no, title, regdate, id, content);
+			
+			request.setAttribute("notice", notice);
+			/*
 			request.setAttribute("title", title);
 			request.setAttribute("regdate", regdate);
 			request.setAttribute("id", id);
 			request.setAttribute("content", content);
+			*/
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/notice/detail.jsp");
 			rd.forward(request, response);
