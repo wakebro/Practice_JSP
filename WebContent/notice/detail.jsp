@@ -1,26 +1,6 @@
-<%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-int no = Integer.parseInt(request.getParameter("no"));
-Class.forName("oracle.jdbc.driver.OracleDriver");
-String url = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
-String sql = "SELECT * FROM NOTICE WHERE no=?";
-Connection con = DriverManager.getConnection(url, "mytest", "mytest");
-PreparedStatement pstmt = con.prepareStatement(sql);
-pstmt.setInt(1, no);
-ResultSet rs = pstmt.executeQuery();
 
-rs.next();
-String title = rs.getString("TITLE");
-Date regdate = rs.getDate("CREATE_DATE");
-String id = rs.getString("ID");
-String content = rs.getString("CONTENT");
-
-rs.close();
-pstmt.close();
-con.close();
-%>
 <!DOCTYPE html>
 <html>
 
@@ -174,16 +154,16 @@ con.close();
 							<tr>
 								<th>제목</th>
 								<td class="text-align-left text-indent text-strong text-orange"
-									colspan="3"><%=title %></td>
+									colspan="3"><%=request.getAttribute("title") %></td>
 							</tr>
 							<tr>
 								<th>작성일</th>
-								<td class="text-align-left text-indent" colspan="3"><%=regdate %>
+								<td class="text-align-left text-indent" colspan="3"><%=request.getAttribute("regdate")%>
 								</td>
 							</tr>
 							<tr>
 								<th>작성자</th>
-								<td><%=id %></td>
+								<td><%=request.getAttribute("id") %></td>
 								<th>조회수</th>
 								<td>-</td>
 							</tr>
@@ -192,7 +172,7 @@ con.close();
 								<td colspan="3"></td>
 							</tr>
 							<tr class="content">
-								<td colspan="4"><%=content %></td>
+								<td colspan="4"><%=request.getAttribute("content") %> </td>
 							</tr>
 						</tbody>
 					</table>
