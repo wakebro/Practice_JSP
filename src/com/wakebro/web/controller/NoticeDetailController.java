@@ -47,7 +47,7 @@ public class NoticeDetailController extends HttpServlet {
 			request.setAttribute("content", content);
 			*/
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/notice/detail.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/notice/detail.jsp");
 			rd.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

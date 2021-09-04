@@ -179,7 +179,7 @@
 				</div>
 
 				<div class="margin-top text-align-center">
-					<a class="btn btn-list" href="list.jsp">목록</a>
+					<a class="btn btn-list" href="/notice/list">목록</a>
 				</div>
 
 				<div class="margin-top">
@@ -191,9 +191,6 @@
 								<td colspan="3" class="text-align-left text-indent">다음글이
 									없습니다.</td>
 							</tr>
-
-
-
 
 							<tr>
 								<th>이전글</th>
