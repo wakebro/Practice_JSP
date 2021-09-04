@@ -2,7 +2,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -173,10 +173,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<% List<Notice> list = (List<Notice>)request.getAttribute("list");
-							for(Notice n : list){
-								pageContext.setAttribute("n", n);
-							%>
+							<c:forEach var="n" items="${list }">
 							<tr>
 								<td>${n.no }</td>
 								<td class="title indent text-align-left"><a
@@ -184,8 +181,7 @@
 								<td>${n.id }</td>
 								<td>${n.regdate }</td>
 							</tr>
-							<%} %>
-
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
