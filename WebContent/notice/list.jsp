@@ -1,14 +1,8 @@
-<%@page import="java.sql.*"%>
+<%@page import="com.wakebro.web.entity.Notice"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-Class.forName("oracle.jdbc.driver.OracleDriver");
-String url = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
-String sql = "SELECT * FROM NOTICE";
-Connection con = DriverManager.getConnection(url, "mytest", "mytest");
-Statement st = con.createStatement();
-ResultSet rs = st.executeQuery(sql);
-%>
+
 <!DOCTYPE html>
 <html>
 
@@ -179,14 +173,16 @@ ResultSet rs = st.executeQuery(sql);
 							</tr>
 						</thead>
 						<tbody>
-
-							<%while(rs.next()) {%>
+							<% List<Notice> list = (List<Notice>)request.getAttribute("list");
+							for(Notice n : list){
+								pageContext.setAttribute("n", n);
+							%>
 							<tr>
-								<td><%=rs.getInt("NO")%></td>
+								<td>${n.no }</td>
 								<td class="title indent text-align-left"><a
-									href="detail?no=<%=rs.getInt("NO")%>"><%=rs.getString("TITLE") %></a></td>
-								<td><%=rs.getString("ID") %></td>
-								<td><%=rs.getDate("CREATE_DATE") %></td>
+									href="detail?no=${n.no }">${n.title }</a></td>
+								<td>${n.id }</td>
+								<td>${n.regdate }</td>
 							</tr>
 							<%} %>
 
@@ -267,9 +263,3 @@ ResultSet rs = st.executeQuery(sql);
 </body>
 
 </html>
-
-<%
-rs.close();
-st.close();
-con.close();							
-%>
