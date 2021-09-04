@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	int no = Integer.parseInt(request.getParameter("no"));
+int no = Integer.parseInt(request.getParameter("no"));
 Class.forName("oracle.jdbc.driver.OracleDriver");
 String url = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
 String sql = "SELECT * FROM NOTICE WHERE no=?";
@@ -12,6 +12,14 @@ pstmt.setInt(1, no);
 ResultSet rs = pstmt.executeQuery();
 
 rs.next();
+String title = rs.getString("TITLE");
+Date regdate = rs.getDate("CREATE_DATE");
+String id = rs.getString("ID");
+String content = rs.getString("CONTENT");
+
+rs.close();
+pstmt.close();
+con.close();
 %>
 <!DOCTYPE html>
 <html>
@@ -160,19 +168,22 @@ rs.next();
 					<h3 class="hidden">공지사항 내용</h3>
 					<table class="table">
 						<tbody>
+						
+							
+						
 							<tr>
 								<th>제목</th>
 								<td class="text-align-left text-indent text-strong text-orange"
-									colspan="3"><%=rs.getString("TITLE")%></td>
+									colspan="3"><%=title %></td>
 							</tr>
 							<tr>
 								<th>작성일</th>
-								<td class="text-align-left text-indent" colspan="3"><%=rs.getDate("CREATE_DATE")%>
+								<td class="text-align-left text-indent" colspan="3"><%=regdate %>
 								</td>
 							</tr>
 							<tr>
 								<th>작성자</th>
-								<td><%=rs.getString("ID")%></td>
+								<td><%=id %></td>
 								<th>조회수</th>
 								<td>-</td>
 							</tr>
@@ -181,7 +192,7 @@ rs.next();
 								<td colspan="3"></td>
 							</tr>
 							<tr class="content">
-								<td colspan="4"><%=rs.getString("CONTENT") %></td>
+								<td colspan="4"><%=content %></td>
 							</tr>
 						</tbody>
 					</table>
@@ -260,9 +271,3 @@ rs.next();
 </body>
 
 </html>
-
-<%
-	rs.close();
-pstmt.close();
-con.close();
-%>
