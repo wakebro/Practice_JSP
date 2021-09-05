@@ -76,34 +76,194 @@ public class NoticeService {
 	}
 	
 	public int getNoticeCount() {
-		return getNoticeCount("title", "", 1);
+		return getNoticeCount("title", "");
 	}
-	public int getNoticeCount(String field, String query, int page) {
-		String sql = "SELECT * FROM ("
+	public int getNoticeCount(String field, String query) {
+		int count = 0;
+		String sql = "SELECT COUNT(NO) COUNT FROM ("
 				+ "SELECT ROWNUM NUM, N.* FROM ("
-				+ "SELECT * FROM NOTICE ORDER BY CREATE_DATE DESC)"
-				+ ") WHERE NUM BETWEEN ? AND ?";
+				+ "SELECT * FROM NOTICE WHERE "+field+" LIKE ? ORDER BY CREATE_DATE DESC) N";
 		
-		return 0;
+		String url = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			con = DriverManager.getConnection(url, "mytest", "mytest");
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + query + "%");
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			count = rs.getInt("COUNT");
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (!con.isClosed() && con != null)
+					con.close();
+				if (!pstmt.isClosed() && pstmt != null)
+					pstmt.close();
+				if (!rs.isClosed() && rs != null)
+					rs.close();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}	
+		
+		return count;
 	}
 	
 	public Notice getNotice(int no) {
+		Notice notice = null;
 		String sql = "SELECT * FROM WHERE NO=?";
-		return null;
+		
+		String url = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			con = DriverManager.getConnection(url, "mytest", "mytest");
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int nNo = rs.getInt("NO");
+				String title = rs.getString("TITLE");
+				Date regdate = rs.getDate("CREATE_DATE");
+				String id = rs.getString("ID");
+				String content = rs.getString("CONTENT");
+				String files = rs.getString("FILES");
+				int hit = rs.getInt("HIT");
+				notice = new Notice(nNo, title, regdate, id, content, files, hit);
+			};
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (!con.isClosed() && con != null)
+					con.close();
+				if (!pstmt.isClosed() && pstmt != null)
+					pstmt.close();
+				if (!rs.isClosed() && rs != null)
+					rs.close();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}	
+		return notice;
 	}
 	public Notice getNextNotice(int no) {
+		Notice notice = null;
 		String sql = "SELECT * FROM NOTICE WHERE NO = ("
 				+ "SELECT NO FROM NOTICE WHERE CREATE_DATE > ("
 				+ "SELECT CREATE_DATE FROM NOTICE WHERE NO=?) "
 				+ "AND ROWNUM=1)";
-		return null;
+		
+		String url = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			con = DriverManager.getConnection(url, "mytest", "mytest");
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int nNo = rs.getInt("NO");
+				String title = rs.getString("TITLE");
+				Date regdate = rs.getDate("CREATE_DATE");
+				String id = rs.getString("ID");
+				String content = rs.getString("CONTENT");
+				String files = rs.getString("FILES");
+				int hit = rs.getInt("HIT");
+				notice = new Notice(nNo, title, regdate, id, content, files, hit);
+			};
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (!con.isClosed() && con != null)
+					con.close();
+				if (!pstmt.isClosed() && pstmt != null)
+					pstmt.close();
+				if (!rs.isClosed() && rs != null)
+					rs.close();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}	
+		
+		return notice;
 	}
 	public Notice getPrevNotice(int no) {
+		Notice notice = null;
 		String sql = "SELECT * FROM NOTICE WHERE NO=(" + 
 				"SELECT NO FROM (SELECT * FROM NOTICE ORDER BY CREATE_DATE DESC) " + 
 				"WHERE CREATE_DATE<(SELECT CREATE_DATE FROM NOTICE WHERE NO=?) " + 
 				"AND ROWNUM = 1)";
-		return null;
+		
+
+		String url = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			con = DriverManager.getConnection(url, "mytest", "mytest");
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int nNo = rs.getInt("NO");
+				String title = rs.getString("TITLE");
+				Date regdate = rs.getDate("CREATE_DATE");
+				String id = rs.getString("ID");
+				String content = rs.getString("CONTENT");
+				String files = rs.getString("FILES");
+				int hit = rs.getInt("HIT");
+				notice = new Notice(nNo, title, regdate, id, content, files, hit);
+			};
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (!con.isClosed() && con != null)
+					con.close();
+				if (!pstmt.isClosed() && pstmt != null)
+					pstmt.close();
+				if (!rs.isClosed() && rs != null)
+					rs.close();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}	
+		
+		return notice;
 	}
 
 }
