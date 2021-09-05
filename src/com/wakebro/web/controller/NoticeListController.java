@@ -42,7 +42,8 @@ public class NoticeListController extends HttpServlet {
 				String id = rs.getString("ID");
 				String content = rs.getString("CONTENT");
 				String files = rs.getString("FILES");
-				Notice notice = new Notice(no, title, regdate, id, content, files);
+				int hit = rs.getInt("HIT");
+				Notice notice = new Notice(no, title, regdate, id, content, files, hit);
 				list.add(notice);
 			}
 			

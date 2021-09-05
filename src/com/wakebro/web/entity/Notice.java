@@ -9,11 +9,12 @@ public class Notice {
 	private String id;
 	private String content;
 	private String files;
+	private int hit;
 	
 	public Notice() {
 	}
 	
-	public Notice(int no, String title, Date regdate, String id, String content, String files) {
+	public Notice(int no, String title, Date regdate, String id, String content, String files, int hit) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -21,6 +22,7 @@ public class Notice {
 		this.id = id;
 		this.content = content;
 		this.files = files;
+		this.hit = hit;
 	}
 
 	public int getNo() {
@@ -70,12 +72,22 @@ public class Notice {
 	public void setFiles(String files) {
 		this.files = files;
 	}
+	
+	
+
+	public int getHit() {
+		return hit;
+	}
+
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
 
 	@Override
 	public String toString() {
 		return "Notice [no=" + no + ", title=" + title + ", regdate=" + regdate + ", id=" + id + ", content=" + content
-				+ ", files=" + files + "]";
+				+ ", files=" + files + ", hit=" + hit + "]";
 	}
-	
+
 	
 }
