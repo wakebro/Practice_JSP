@@ -82,7 +82,7 @@ public class NoticeService {
 		int count = 0;
 		String sql = "SELECT COUNT(NO) COUNT FROM ("
 				+ "SELECT ROWNUM NUM, N.* FROM ("
-				+ "SELECT * FROM NOTICE WHERE "+field+" LIKE ? ORDER BY CREATE_DATE DESC) N";
+				+ "SELECT * FROM NOTICE WHERE "+field+" LIKE ? ORDER BY CREATE_DATE DESC) N)";
 		
 		String url = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
 		Connection con = null;
@@ -97,8 +97,8 @@ public class NoticeService {
 			pstmt.setString(1, "%" + query + "%");
 			rs = pstmt.executeQuery();
 			
-			rs.next();
-			count = rs.getInt("COUNT");
+			if(rs.next())
+				count = rs.getInt("COUNT");
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -123,7 +123,7 @@ public class NoticeService {
 	
 	public Notice getNotice(int no) {
 		Notice notice = null;
-		String sql = "SELECT * FROM WHERE NO=?";
+		String sql = "SELECT * FROM NOTICE WHERE NO=?";
 		
 		String url = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
 		Connection con = null;
