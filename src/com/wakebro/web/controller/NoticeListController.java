@@ -41,7 +41,8 @@ public class NoticeListController extends HttpServlet {
 				Date regdate = rs.getDate("CREATE_DATE");
 				String id = rs.getString("ID");
 				String content = rs.getString("CONTENT");
-				Notice notice = new Notice(no, title, regdate, id, content);
+				String files = rs.getString("FILES");
+				Notice notice = new Notice(no, title, regdate, id, content, files);
 				list.add(notice);
 			}
 			

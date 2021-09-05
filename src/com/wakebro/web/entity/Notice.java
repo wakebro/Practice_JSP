@@ -8,17 +8,19 @@ public class Notice {
 	private Date regdate;
 	private String id;
 	private String content;
+	private String files;
 	
 	public Notice() {
 	}
 	
-	public Notice(int no, String title, Date regdate, String id, String content) {
+	public Notice(int no, String title, Date regdate, String id, String content, String files) {
 		super();
 		this.no = no;
 		this.title = title;
 		this.regdate = regdate;
 		this.id = id;
 		this.content = content;
+		this.files = files;
 	}
 
 	public int getNo() {
@@ -60,16 +62,20 @@ public class Notice {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	public String getFiles() {
+		return files;
+	}
+
+	public void setFiles(String files) {
+		this.files = files;
+	}
 
 	@Override
 	public String toString() {
 		return "Notice [no=" + no + ", title=" + title + ", regdate=" + regdate + ", id=" + id + ", content=" + content
-				+ "]";
+				+ ", files=" + files + "]";
 	}
-	
-	
-	
-	
 	
 	
 }

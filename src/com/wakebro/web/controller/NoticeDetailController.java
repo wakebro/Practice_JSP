@@ -36,8 +36,9 @@ public class NoticeDetailController extends HttpServlet {
 			Date regdate = rs.getDate("CREATE_DATE");
 			String id = rs.getString("ID");
 			String content = rs.getString("CONTENT");
+			String files = rs.getString("FILES");
 			
-			Notice notice = new Notice(no, title, regdate, id, content);
+			Notice notice = new Notice(no, title, regdate, id, content, files);
 			
 			request.setAttribute("notice", notice);
 			/*
