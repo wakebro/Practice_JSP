@@ -1,4 +1,4 @@
-package com.wakebro.web.controller;
+package com.wakebro.web.controller.notice;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import com.wakebro.web.service.NoticeService;
 import java.sql.*;
 
 @WebServlet("/notice/detail")
-public class NoticeDetailController extends HttpServlet {
+public class DetailController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no = Integer.parseInt(request.getParameter("no"));

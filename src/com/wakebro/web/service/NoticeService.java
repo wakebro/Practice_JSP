@@ -12,19 +12,20 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 
 import com.wakebro.web.entity.Notice;
+import com.wakebro.web.entity.NoticeView;
 
 public class NoticeService {
-	public List<Notice> getNoticeList(){
+	public List<NoticeView> getNoticeList(){
 		return getNoticeList("title", "", 1);
 	}
-	public List<Notice> getNoticeList(int page){
+	public List<NoticeView> getNoticeList(int page){
 		return getNoticeList("title", "", page);
 	}
-	public List<Notice> getNoticeList(String field, String query, int page){
-		List<Notice> list = new ArrayList<Notice>();
+	public List<NoticeView> getNoticeList(String field, String query, int page){
+		List<NoticeView> list = new ArrayList<NoticeView>();
 		String sql = "SELECT * FROM ("
 				+ "SELECT ROWNUM NUM, N.* FROM ("
-				+ "SELECT * FROM NOTICE WHERE "+field+" LIKE ? ORDER BY CREATE_DATE DESC) N"
+				+ "SELECT * FROM NOTICE_VIEW WHERE "+field+" LIKE ? ORDER BY CREATE_DATE DESC) N"
 				+ ") WHERE NUM BETWEEN ? AND ?";
 		
 		String url = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
@@ -47,10 +48,19 @@ public class NoticeService {
 				String title = rs.getString("TITLE");
 				Date regdate = rs.getDate("CREATE_DATE");
 				String id = rs.getString("ID");
-				String content = rs.getString("CONTENT");
+				//String content = rs.getString("CONTENT");
 				String files = rs.getString("FILES");
 				int hit = rs.getInt("HIT");
-				Notice notice = new Notice(no, title, regdate, id, content, files, hit);
+				int cmtCount = rs.getInt("CMT_COUNT");
+				NoticeView notice = new NoticeView(
+						no, 
+						title, 
+						regdate, 
+						id,
+						//content,
+						files, 
+						hit,
+						cmtCount);
 				list.add(notice);
 			}
 			

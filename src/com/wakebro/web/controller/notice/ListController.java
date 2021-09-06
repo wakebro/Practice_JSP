@@ -1,4 +1,4 @@
-package com.wakebro.web.controller;
+package com.wakebro.web.controller.notice;
 
 import java.io.IOException;
 
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wakebro.web.entity.Notice;
+import com.wakebro.web.entity.NoticeView;
 import com.wakebro.web.service.NoticeService;
 
 import java.sql.*;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/notice/list")
-public class NoticeListController extends HttpServlet {
+public class ListController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String field_ = request.getParameter("f");
@@ -37,7 +38,7 @@ public class NoticeListController extends HttpServlet {
 			page = Integer.parseInt(page_);
 		
 		NoticeService service = new NoticeService();
-		List<Notice> list = service.getNoticeList(field, query, page);
+		List<NoticeView> list = service.getNoticeList(field, query, page);
 		int count = service.getNoticeCount(field, query);
 		count = (count % 10) == 0 ? count / 10 : (count / 10) + 1; 
 		
