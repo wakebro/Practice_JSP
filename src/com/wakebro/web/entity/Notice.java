@@ -10,11 +10,12 @@ public class Notice {
 	private String content;
 	private String files;
 	private int hit;
+	private boolean pub;
 	
 	public Notice() {
 	}
 	
-	public Notice(int no, String title, Date regdate, String id, String content, String files, int hit) {
+	public Notice(int no, String title, Date regdate, String id, String content, String files, int hit, boolean pub) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -23,6 +24,7 @@ public class Notice {
 		this.content = content;
 		this.files = files;
 		this.hit = hit;
+		this.pub = pub;
 	}
 
 	public int getNo() {
@@ -82,12 +84,22 @@ public class Notice {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
+	
+
+	public boolean getPub() {
+		return pub;
+	}
+
+	public void setPub(boolean pub) {
+		this.pub = pub;
+	}
 
 	@Override
 	public String toString() {
 		return "Notice [no=" + no + ", title=" + title + ", regdate=" + regdate + ", id=" + id + ", content=" + content
-				+ ", files=" + files + ", hit=" + hit + "]";
+				+ ", files=" + files + ", hit=" + hit + ", pub=" + pub + "]";
 	}
+	
 
 	
 }

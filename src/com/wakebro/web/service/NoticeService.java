@@ -24,8 +24,44 @@ public class NoticeService {
 	public int pubNoticeAll(int[] ids) {
 		return 0;
 	}
-	public int insertNotice(Notice notices) {
-		return 0;
+	public int insertNotice(Notice notice) {
+		int result = 0;
+		
+		
+		String sql = "INSERT INTO NOTICE(TITLE, CONTENT, ID, PUB) VALUES(?, ?, ?, ?)";
+
+		String url = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			con = DriverManager.getConnection(url, "mytest", "mytest");
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, notice.getTitle());
+			pstmt.setString(2, notice.getContent());
+			pstmt.setString(3, notice.getId());
+			pstmt.setBoolean(4, notice.getPub());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (!con.isClosed() && con != null)
+					con.close();
+				if (!pstmt.isClosed() && pstmt != null)
+					pstmt.close();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}	
+		return result;
 	}
 	public int deleteNotice(int id) {
 		return 0;
@@ -74,6 +110,7 @@ public class NoticeService {
 				String files = rs.getString("FILES");
 				int hit = rs.getInt("HIT");
 				int cmtCount = rs.getInt("CMT_COUNT");
+				boolean pub = rs.getBoolean("PUB");
 				NoticeView notice = new NoticeView(
 						no, 
 						title, 
@@ -82,7 +119,8 @@ public class NoticeService {
 						//content,
 						files, 
 						hit,
-						cmtCount);
+						cmtCount,
+						pub);
 				list.add(notice);
 			}
 			
@@ -177,7 +215,8 @@ public class NoticeService {
 				String content = rs.getString("CONTENT");
 				String files = rs.getString("FILES");
 				int hit = rs.getInt("HIT");
-				notice = new Notice(nNo, title, regdate, id, content, files, hit);
+				boolean pub = rs.getBoolean("PUB");
+				notice = new Notice(nNo, title, regdate, id, content, files, hit, pub);
 			};
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -225,7 +264,8 @@ public class NoticeService {
 				String content = rs.getString("CONTENT");
 				String files = rs.getString("FILES");
 				int hit = rs.getInt("HIT");
-				notice = new Notice(nNo, title, regdate, id, content, files, hit);
+				boolean pub = rs.getBoolean("PUB");
+				notice = new Notice(nNo, title, regdate, id, content, files, hit, pub);
 			};
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -275,7 +315,8 @@ public class NoticeService {
 				String content = rs.getString("CONTENT");
 				String files = rs.getString("FILES");
 				int hit = rs.getInt("HIT");
-				notice = new Notice(nNo, title, regdate, id, content, files, hit);
+				boolean pub = rs.getBoolean("PUB");
+				notice = new Notice(nNo, title, regdate, id, content, files, hit, pub);
 			};
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
