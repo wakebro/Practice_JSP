@@ -15,6 +15,27 @@ import com.wakebro.web.entity.Notice;
 import com.wakebro.web.entity.NoticeView;
 
 public class NoticeService {
+	
+	public int removeNoticeAll(int[] ids) {
+		
+		return 0;
+	}
+	public int pubNoticeAll(int[] ids) {
+		return 0;
+	}
+	public int insertNotice(Notice notices) {
+		return 0;
+	}
+	public int deleteNotice(int id) {
+		return 0;
+	}
+	public int updateNotice(Notice notice) {
+		return 0;
+	}
+	public List<Notice> getNoticeNewestList() {
+		return null;
+	}
+	
 	public List<NoticeView> getNoticeList(){
 		return getNoticeList("title", "", 1);
 	}

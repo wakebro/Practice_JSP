@@ -1,4 +1,4 @@
-package com.wakebro.web.controller;
+package com.wakebro.web.controller.admin;
 
 import java.io.IOException;
 
@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/index")
+@WebServlet("/admin/index")
 public class IndexController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/index.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/admin/index.jsp");
 		rd.forward(request, response);
 				
 	}
