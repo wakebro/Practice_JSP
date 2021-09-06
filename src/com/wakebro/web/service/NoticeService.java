@@ -44,6 +44,7 @@ public class NoticeService {
 			pstmt.setString(3, notice.getId());
 			pstmt.setBoolean(4, notice.getPub());
 			
+			
 			result = pstmt.executeUpdate();
 			
 		} catch (ClassNotFoundException e) {
