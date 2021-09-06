@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -295,6 +296,47 @@ public class NoticeService {
 		}	
 		
 		return notice;
+	}
+	public int deleteNoticeAll(int[] nos) {
+		int result = 0;
+		String params = "";
+		
+		for (int i = 0; i < nos.length; i++) {
+			params += nos[i];
+			
+			if(i < nos.length -1)
+				params += ",";
+		}
+		
+		String sql = "DELETE NOTICE WHERE no= IN("+params+")";
+
+		String url = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
+		Connection con = null;
+		Statement stmt = null;
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			con = DriverManager.getConnection(url, "mytest", "mytest");
+			stmt = con.createStatement();
+			result = stmt.executeUpdate(sql);
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (!con.isClosed() && con != null)
+					con.close();
+				if (!stmt.isClosed() && stmt != null)
+					stmt.close();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}	
+		return result;
 	}
 
 }
